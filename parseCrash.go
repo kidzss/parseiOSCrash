@@ -41,17 +41,17 @@ func CrashFileValid(excuteFile string,dsymFile string) bool {
 	} else {
 		dsymListStr = getUdidList(string(dsymResult))
 	}
-
+	var isExist bool = true
 	//比较两个数据是否相等
-	var isExist bool = false
 	for _,v := range excListStr {
-		isExist = false
 		for _,val:= range dsymListStr {
-			if string(v) == string(val) {
-				isExist = true
+			if string(v) != string(val) {
+				isExist = false
+				goto Loop
 			}
 		}
 	}
+	Loop:
 	return isExist
 }
 
